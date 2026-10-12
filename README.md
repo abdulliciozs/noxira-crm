@@ -1,10 +1,10 @@
-# Atomic CRM
+# Noxira CRM
 
-A full-featured CRM built with React, shadcn-admin-kit, and Supabase.
+Noxira-branded adaptation of [Atomic CRM](https://github.com/marmelab/atomic-crm), an open-source React and Supabase CRM by Marmelab.
 
 <https://github.com/user-attachments/assets/0d7554b5-49ef-41c6-bcc9-a76214fc5c99>
 
-Atomic CRM is free and open-source. You can test it online at <https://marmelab.com/atomic-crm-demo>.
+This fork does not yet have a public deployment. The [official upstream demo](https://marmelab.com/atomic-crm-demo/) is a separate FakeRest preview: it uses in-memory sample data and resets on reload. The full application uses Supabase for authentication and persistence.
 
 ## Features
 
@@ -28,10 +28,10 @@ To run this project locally, you will need the following tools installed on your
 - Node 24 LTS
 - Docker (required by Supabase)
 
-Fork the [`marmelab/atomic-crm`](https://github.com/marmelab/atomic-crm) repository to your user/organization, then clone it locally:
+Clone this fork or the upstream [`marmelab/atomic-crm`](https://github.com/marmelab/atomic-crm) repository:
 
 ```sh
-git clone https://github.com/[username]/atomic-crm.git
+git clone https://github.com/abdulliciozs/noxira-crm.git
 ```
 
 Install dependencies:
@@ -123,8 +123,8 @@ This project is licensed under the MIT License, courtesy of [Marmelab](https://m
 
 ## Noxira CRM portfolio adaptation
 
-This fork presents the upstream Atomic CRM application with Noxira branding. The React CRM features, Supabase integration, database schema, and upstream attribution are preserved. The Noxira wordmark assets were sourced from [noxira.app](https://noxira.app/brand/noxira-mark-dark.svg); the theme uses the existing Noxira product palette from the portfolio workspace.
+This fork applies Noxira's product name, official mark, and existing blue product palette to the upstream application. Core CRM features, Supabase integration, schema, and upstream notices remain intact.
 
-The official hosted demo is a **FakeRest in-memory demonstration**: changes are local to the browser session and reset on reload. It is not a shared, persistent CRM deployment. The complete authenticated and persistent application requires an approved Supabase project and configured credentials, which are not part of this repository adaptation.
+This fork has not been publicly deployed and has no Supabase project configured. Its local browser preview uses FakeRest sample data that resets on reload; it is not a shared, persistent CRM service.
 
-Upstream source: [marmelab/atomic-crm](https://github.com/marmelab/atomic-crm) · License: MIT (see [LICENSE.md](./LICENSE.md)).
+Upstream source: [marmelab/atomic-crm](https://github.com/marmelab/atomic-crm) | License: MIT (see [LICENSE.md](./LICENSE.md)).

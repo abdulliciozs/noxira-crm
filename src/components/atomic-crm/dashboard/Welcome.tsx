@@ -3,31 +3,26 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 export const Welcome = () => (
   <Card>
     <CardHeader className="px-4">
-      <CardTitle>Your CRM Starter Kit</CardTitle>
+      <CardTitle>Noxira CRM Preview</CardTitle>
     </CardHeader>
     <CardContent className="px-4">
       <p className="text-sm mb-4">
-        <a
-          href="https://marmelab.com/atomic-crm"
-          className="underline hover:no-underline"
-        >
-          Atomic CRM
-        </a>{" "}
-        is a template designed to help you quickly build your own CRM.
+        Explore the Noxira-branded CRM interface and sample workspace.
       </p>
       <p className="text-sm mb-4">
-        This demo runs on a mock API, so you can explore and modify the data. It
-        resets on reload. The full version uses Supabase for the backend.
+        This preview uses a mock API and sample data. Changes reset on reload.
+        The full application uses Supabase for authentication and persistence;
+        this preview is not a shared CRM service.
       </p>
       <p className="text-sm">
-        Powered by{" "}
+        Built on{" "}
         <a
           href="https://marmelab.com/shadcn-admin-kit"
           className="underline hover:no-underline"
         >
           shadcn-admin-kit
         </a>
-        , Atomic CRM is fully open-source. You can find the code at{" "}
+        , with attribution to Marmelab's open-source Atomic CRM project. Source:{" "}
         <a
           href="https://github.com/marmelab/atomic-crm"
           className="underline hover:no-underline"
