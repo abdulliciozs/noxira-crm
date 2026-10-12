@@ -138,6 +138,7 @@
     "vitest-browser-react": "^2.3.0"
   },
   "overrides": {
-    "react-router-dom": "^7.17.0"
+    "react-router-dom": "^7.17.0",
+    "proxy-addr": "2.0.8"
   }
 }
