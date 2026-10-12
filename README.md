@@ -4,9 +4,11 @@ Noxira-branded adaptation of [Atomic CRM](https://github.com/marmelab/atomic-crm
 
 <https://github.com/user-attachments/assets/0d7554b5-49ef-41c6-bcc9-a76214fc5c99>
 
-This fork does not yet have a public deployment. The [official upstream demo](https://marmelab.com/atomic-crm-demo/) is a separate FakeRest preview: it uses in-memory sample data and resets on reload. The full application uses Supabase for authentication and persistence.
+Noxira CRM includes a browser-only guest preview. It uses IndexedDB for this browser's sample workspace; it does not connect to a CRM backend or create shared accounts.
 
-## Features
+## Upstream Atomic CRM features
+
+The list below describes the full upstream product. The browser-only Noxira guest preview and its limits are described separately below.
 
 - 📇 **Organize Contacts**: Keep all your contacts in one easily accessible place.
 - ⏰ **Create Tasks & Set Reminders**: Never miss a follow-up or deadline.
@@ -19,6 +21,16 @@ This fork does not yet have a public deployment. The [official upstream demo](ht
 - 🔗 **Integrate via API**: Connect seamlessly with other systems using our API.
 - 🛠️ **Customize Everything**: Add custom fields, change the theme, and replace any component to fit your needs.
 - 📦 **Stay Up To Date**: Pull the latest component updates into your fork via the Atomic CRM shadcn registry.
+
+## Noxira guest demo
+
+The demo opens with an **Explore Demo** entry and requires no sign-in. It preserves the Atomic CRM interface and uses the existing browser FakeRest data provider, backed by IndexedDB for persistent local data.
+
+- **Fictional records:** the initial contacts, companies, leads, tasks, notes, and deal pipeline are generated as sample data on first use. Sample contact emails use the reserved example.test domain and sample phone numbers use the reserved 202-555-01xx range.
+- **Browser-local persistence:** changes save after successful CRM data-provider mutations and remain in this browser across refreshes and later visits. Each browser profile has its own separate database.
+- **Reset:** choose **Reset Demo Data** in the guest notice and confirm to replace the current browser-local records with a fresh fictional sample. Storage versions are checked; unsupported or incomplete saved data is preserved until an explicit reset.
+- **Unavailable services:** real authentication, password recovery, team accounts, cloud sync, email delivery, and external integrations are not connected. Account and configuration administration are hidden or rejected where those server services would be required. Do not enter real customer information.
+- **Local preview:** run `npm run dev:demo` after installing the project dependencies. No Supabase project is used by the guest preview.
 
 ## Installation
 
@@ -37,7 +49,7 @@ git clone https://github.com/abdulliciozs/noxira-crm.git
 Install dependencies:
 
 ```sh
-cd atomic-crm
+cd noxira-crm
 make install
 ```
 
@@ -123,8 +135,6 @@ This project is licensed under the MIT License, courtesy of [Marmelab](https://m
 
 ## Noxira CRM portfolio adaptation
 
-This fork applies Noxira's product name, official mark, and existing blue product palette to the upstream application. Core CRM features, Supabase integration, schema, and upstream notices remain intact.
+This fork applies Noxira's product name, official mark, and existing blue product palette to Marmelab's Atomic CRM. The core CRM UI and its MIT license and upstream notices are retained. The guest preview runs locally in each visitor's browser and is not a shared CRM service.
 
-This fork has not been publicly deployed and has no Supabase project configured. Its local browser preview uses FakeRest sample data that resets on reload; it is not a shared, persistent CRM service.
-
-Upstream source: [marmelab/atomic-crm](https://github.com/marmelab/atomic-crm) | License: MIT (see [LICENSE.md](./LICENSE.md)).
+Upstream source: [marmelab/atomic-crm](https://github.com/marmelab/atomic-crm) | License: MIT (see LICENSE.md).

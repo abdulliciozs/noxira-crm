@@ -10,9 +10,10 @@ export const Welcome = () => (
         Explore the Noxira-branded CRM interface and sample workspace.
       </p>
       <p className="text-sm mb-4">
-        This preview uses a mock API and sample data. Changes reset on reload.
-        The full application uses Supabase for authentication and persistence;
-        this preview is not a shared CRM service.
+        This guest preview saves fictional sample data in this browser's local
+        storage and keeps changes after a refresh. Use Reset Demo Data above to
+        restore the original sample. It has no sign-in, shared accounts, cloud
+        sync, email delivery, or external integrations.
       </p>
       <p className="text-sm">
         Built on{" "}
