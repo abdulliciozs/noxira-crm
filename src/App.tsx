@@ -1,4 +1,5 @@
 import { CRM } from "@/components/atomic-crm/root/CRM";
+import { localStorageStore } from "ra-core";
 import noxiraDark from "./noxira-mark-dark.svg";
 import noxiraLight from "./noxira-mark-light.svg";
 
@@ -40,6 +41,7 @@ const App = () => (
     lightModeLogo={noxiraDark}
     lightTheme={{ palette: { primary: { main: "#2563eb" } } }}
     darkTheme={{ palette: { primary: { main: "#3b82f6" } } }}
+    store={localStorageStore(undefined, "NoxiraCRM")}
     disableTelemetry
   />
 );
