@@ -3,6 +3,10 @@ import { memoryStore, type LayoutComponent } from "ra-core";
 import { Button } from "@/components/ui/button";
 import { CRM } from "@/components/atomic-crm/root/CRM";
 import { Layout } from "@/components/atomic-crm/layout/Layout";
+import { MobileLayout } from "@/components/atomic-crm/layout/MobileLayout";
+import { useIsMobile } from "@/hooks/use-mobile";
+import { CONFIGURATION_STORE_KEY } from "@/components/atomic-crm/root/ConfigurationContext";
+import { defaultConfiguration } from "@/components/atomic-crm/root/defaultConfiguration";
 import type { Db } from "../src/components/atomic-crm/providers/fakerest/dataGenerator/types";
 import {
   createGuestAuthProvider,
@@ -28,48 +32,122 @@ function getErrorMessage(error: unknown): string {
 
 function GuestDemoLayout({ children }: { children: React.ReactNode }) {
   const notice = useContext(DemoNoticeContext);
+  const isMobile = useIsMobile();
 
   return (
     <>
+      <GuestDemoNotice compact={isMobile} notice={notice} />
+      {isMobile ? (
+        <div className="[--guest-demo-notice-offset:2.5rem]">
+          <MobileLayout>{children}</MobileLayout>
+        </div>
+      ) : (
+        <Layout>{children}</Layout>
+      )}
+    </>
+  );
+}
+
+function GuestDemoNotice({
+  compact,
+  notice,
+}: {
+  compact: boolean;
+  notice: DemoNoticeState | null;
+}) {
+  const resetButton = (
+    <button
+      type="button"
+      onClick={() => void notice?.resetData()}
+      disabled={notice?.resetting}
+      className="inline-flex min-h-9 shrink-0 items-center justify-center rounded-md border border-blue-300 bg-white px-3 py-1.5 text-xs font-semibold text-blue-900 shadow-sm transition hover:bg-blue-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 disabled:cursor-wait disabled:opacity-60 dark:border-blue-800 dark:bg-blue-950 dark:text-blue-100 dark:hover:bg-blue-900"
+    >
+      {notice?.resetting ? "Resetting..." : "Reset Demo Data"}
+    </button>
+  );
+
+  if (compact) {
+    return (
       <section
         aria-label="Guest demo notice"
-        className="border-b border-blue-200 bg-blue-50 text-blue-950 dark:border-blue-900 dark:bg-blue-950/40 dark:text-blue-100"
+        className="fixed left-0 right-0 top-14 z-20 border-b border-blue-200 bg-blue-50 text-blue-950 dark:border-blue-900 dark:bg-blue-950 dark:text-blue-100"
       >
-        <div className="mx-auto flex max-w-screen-xl flex-col gap-3 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
-          <div className="space-y-1">
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="rounded-full bg-blue-700 px-2.5 py-1 text-xs font-semibold text-white dark:bg-blue-400 dark:text-blue-950">
-                Guest demo
-              </span>
-              <span className="text-sm font-medium">
-                Fictional sample records - saved automatically in this browser
-              </span>
-            </div>
-            <p className="max-w-4xl text-xs leading-relaxed text-blue-900/80 dark:text-blue-100/80">
-              No sign-in, shared accounts, cloud sync, email delivery, or
-              external integrations. Your changes stay in this browser.
-            </p>
-            {notice?.storageError && (
-              <p
-                role="alert"
-                className="text-sm font-semibold text-red-700 dark:text-red-300"
-              >
-                Could not save locally: {notice.storageError}
-              </p>
-            )}
+        <div className="mx-auto flex h-10 max-w-screen-xl items-center justify-between gap-2 px-3">
+          <div className="flex min-w-0 items-center gap-2">
+            <span className="shrink-0 whitespace-nowrap rounded-full bg-blue-700 px-2 py-1 text-[0.65rem] font-semibold text-white dark:bg-blue-400 dark:text-blue-950">
+              Guest demo
+            </span>
+            <span className="truncate text-xs font-medium">Saved locally</span>
           </div>
-          <button
-            type="button"
-            onClick={() => void notice?.resetData()}
-            disabled={notice?.resetting}
-            className="inline-flex min-h-10 shrink-0 items-center justify-center rounded-md border border-blue-300 bg-white px-4 py-2 text-sm font-semibold text-blue-900 shadow-sm transition hover:bg-blue-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 disabled:cursor-wait disabled:opacity-60 dark:border-blue-800 dark:bg-blue-950 dark:text-blue-100 dark:hover:bg-blue-900"
-          >
-            {notice?.resetting ? "Resetting..." : "Reset Demo Data"}
-          </button>
+          <details className="relative shrink-0">
+            <summary className="list-none cursor-pointer px-1 text-[0.65rem] font-semibold underline underline-offset-2">
+              About
+            </summary>
+            <div className="absolute right-0 top-full z-30 mt-2 w-[min(20rem,calc(100vw-1rem))] rounded-lg border border-blue-200 bg-blue-50 p-3 text-xs leading-relaxed shadow-lg dark:border-blue-900 dark:bg-blue-950">
+              <p>
+                Fictional sample records only. No sign-in, shared accounts,
+                cloud sync, email delivery, or external integrations. Changes
+                stay in this browser.
+              </p>
+              <p className="mt-2">
+                Built on shadcn-admin-kit and Marmelab's open-source Atomic CRM.{" "}
+                <a
+                  className="underline"
+                  href="https://github.com/marmelab/atomic-crm"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  View upstream source
+                </a>
+                .
+              </p>
+            </div>
+          </details>
+          {resetButton}
         </div>
+        {notice?.storageError && (
+          <p
+            role="alert"
+            className="px-3 pb-2 text-xs font-semibold text-red-700 dark:text-red-300"
+          >
+            Could not save locally: {notice.storageError}
+          </p>
+        )}
       </section>
-      <Layout>{children}</Layout>
-    </>
+    );
+  }
+
+  return (
+    <section
+      aria-label="Guest demo notice"
+      className="border-b border-blue-200 bg-blue-50 text-blue-950 dark:border-blue-900 dark:bg-blue-950/40 dark:text-blue-100"
+    >
+      <div className="mx-auto flex max-w-screen-xl flex-col gap-3 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
+        <div className="space-y-1">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="rounded-full bg-blue-700 px-2.5 py-1 text-xs font-semibold text-white dark:bg-blue-400 dark:text-blue-950">
+              Guest demo
+            </span>
+            <span className="text-sm font-medium">
+              Fictional sample records - saved automatically in this browser
+            </span>
+          </div>
+          <p className="max-w-4xl text-xs leading-relaxed text-blue-900/80 dark:text-blue-100/80">
+            No sign-in, shared accounts, cloud sync, email delivery, or external
+            integrations. Your changes stay in this browser.
+          </p>
+          {notice?.storageError && (
+            <p
+              role="alert"
+              className="text-sm font-semibold text-red-700 dark:text-red-300"
+            >
+              Could not save locally: {notice.storageError}
+            </p>
+          )}
+        </div>
+        {resetButton}
+      </div>
+    </section>
   );
 }
 
@@ -176,7 +254,16 @@ function GuestCrm({ initialDatabase }: { initialDatabase: Db }) {
     ),
   );
   const [authProvider] = useState(() => createGuestAuthProvider(dataProvider));
-  const [store] = useState(() => memoryStore());
+  const [store] = useState(() =>
+    memoryStore({
+      [CONFIGURATION_STORE_KEY]: {
+        ...defaultConfiguration,
+        title: "Noxira CRM",
+        darkModeLogo: noxiraLight,
+        lightModeLogo: noxiraDark,
+      },
+    }),
+  );
 
   const resetData = async () => {
     if (

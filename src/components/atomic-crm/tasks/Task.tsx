@@ -90,9 +90,9 @@ export const Task = ({
 
   return (
     <>
-      <div className="flex items-start justify-between">
+      <div className="flex min-w-0 items-start justify-between gap-1">
         <div
-          className="flex items-start gap-2 flex-1"
+          className="flex min-w-0 flex-1 items-start gap-2"
           onClick={isMobile ? handleCheck() : undefined}
         >
           <Checkbox
@@ -154,7 +154,7 @@ export const Task = ({
             <Button
               variant="ghost"
               size="icon"
-              className="h-5 pr-0! size-8 cursor-pointer"
+              className="h-5 size-8 shrink-0 cursor-pointer pr-0!"
               aria-label={translate("resources.tasks.actions.title")}
             >
               <MoreVertical className="size-5 md:size-4" />

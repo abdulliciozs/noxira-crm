@@ -34,7 +34,7 @@ const Header = () => {
       <nav className="grow">
         <header className="bg-secondary">
           <div className="px-4">
-            <div className="flex justify-between items-center flex-1">
+            <div className="flex flex-1 flex-wrap items-center justify-between gap-y-1">
               <Link
                 to="/"
                 className="flex items-center gap-2 text-secondary-foreground no-underline"
@@ -51,7 +51,7 @@ const Header = () => {
                 />
                 <h1 className="text-xl font-semibold">{title}</h1>
               </Link>
-              <div>
+              <div className="order-3 flex basis-full justify-center lg:order-none lg:basis-auto">
                 <nav className="flex">
                   <NavigationTab
                     label={translate("ra.page.dashboard")}
@@ -81,7 +81,7 @@ const Header = () => {
                   />
                 </nav>
               </div>
-              <div className="flex items-center">
+              <div className="flex shrink-0 items-center">
                 <GlobalSearchButton />
                 <ThemeModeToggle />
                 <RefreshButton />
