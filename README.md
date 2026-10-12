@@ -120,3 +120,11 @@ The registry file is kept up to date automatically:
 ## License
 
 This project is licensed under the MIT License, courtesy of [Marmelab](https://marmelab.com). See the [LICENSE.md](./LICENSE.md) file for details.
+
+## Noxira CRM portfolio adaptation
+
+This fork presents the upstream Atomic CRM application with Noxira branding. The React CRM features, Supabase integration, database schema, and upstream attribution are preserved. The Noxira wordmark assets were sourced from [noxira.app](https://noxira.app/brand/noxira-mark-dark.svg); the theme uses the existing Noxira product palette from the portfolio workspace.
+
+The official hosted demo is a **FakeRest in-memory demonstration**: changes are local to the browser session and reset on reload. It is not a shared, persistent CRM deployment. The complete authenticated and persistent application requires an approved Supabase project and configured credentials, which are not part of this repository adaptation.
+
+Upstream source: [marmelab/atomic-crm](https://github.com/marmelab/atomic-crm) · License: MIT (see [LICENSE.md](./LICENSE.md)).

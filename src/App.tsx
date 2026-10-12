@@ -1,4 +1,6 @@
 import { CRM } from "@/components/atomic-crm/root/CRM";
+import noxiraDark from "./noxira-mark-dark.svg";
+import noxiraLight from "./noxira-mark-light.svg";
 
 /**
  * Application entry point
@@ -31,6 +33,15 @@ import { CRM } from "@/components/atomic-crm/root/CRM";
  *    />
  * );
  */
-const App = () => <CRM />;
+const App = () => (
+  <CRM
+    title="Noxira CRM"
+    darkModeLogo={noxiraLight}
+    lightModeLogo={noxiraDark}
+    lightTheme={{ palette: { primary: { main: "#2563eb" } } }}
+    darkTheme={{ palette: { primary: { main: "#3b82f6" } } }}
+    disableTelemetry
+  />
+);
 
 export default App;
