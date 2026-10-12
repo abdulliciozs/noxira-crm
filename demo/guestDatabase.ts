@@ -13,7 +13,7 @@ type StoredGuestDatabase = {
   initialData: Db;
 };
 
-type FakeRestDatabase = {
+export type FakeRestDatabase = {
   getCollectionNames(): string[];
   getAll(resource: string): unknown[];
 };
@@ -208,7 +208,7 @@ export async function saveGuestDatabase(data: Db): Promise<void> {
   }
 }
 
-export function getCurrentGuestDatabaseSnapshot(): Db {
+export function getCurrentFakeRestDatabase(): FakeRestDatabase {
   const database = (window as WindowWithFakeRestDatabase)._database;
   if (!database) {
     throw new Error(
@@ -216,6 +216,12 @@ export function getCurrentGuestDatabaseSnapshot(): Db {
     );
   }
 
+  return database;
+}
+
+export function getCurrentGuestDatabaseSnapshot(
+  database: FakeRestDatabase = getCurrentFakeRestDatabase(),
+): Db {
   const snapshot = Object.fromEntries(
     database
       .getCollectionNames()

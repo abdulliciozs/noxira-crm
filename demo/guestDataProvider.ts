@@ -3,6 +3,7 @@ import type { CrmDataProvider } from "../src/components/atomic-crm/providers/typ
 import { createDataProvider } from "../src/components/atomic-crm/providers/fakerest/dataProvider";
 import type { Db } from "../src/components/atomic-crm/providers/fakerest/dataGenerator/types";
 import {
+  getCurrentFakeRestDatabase,
   getCurrentGuestDatabaseSnapshot,
   saveGuestDatabase,
 } from "./guestDatabase";
@@ -37,13 +38,17 @@ export function createGuestDataProvider(
       }),
     },
   });
+  // ra-data-fakerest exposes its internal database as window._database. Capture
+  // this provider's instance now: responsive Admin remounts and StrictMode can
+  // overwrite that global with a different provider's database later.
+  const database = getCurrentFakeRestDatabase();
 
   let saveQueue = Promise.resolve();
 
   const saveCurrentState = () => {
     const save = saveQueue
       .catch(() => undefined)
-      .then(() => saveGuestDatabase(getCurrentGuestDatabaseSnapshot()));
+      .then(() => saveGuestDatabase(getCurrentGuestDatabaseSnapshot(database)));
     saveQueue = save;
     return save;
   };
